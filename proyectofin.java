@@ -19,7 +19,7 @@ public class proyectofin {
         do {
             System.out.print("Ingrese su usuario: ");
             usuario = entradaEscaner.nextLine();
-            System.out.print("Ingrese su ContraseÃ±a: ");
+            System.out.print("Ingrese su Contraseña: ");
             contrasenia = entradaEscaner.nextLine();
             estado = autenticarAutorizar(usuario,contrasenia);
 
