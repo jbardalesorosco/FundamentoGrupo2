@@ -1,35 +1,34 @@
 package TrabajoGrupal;
 
-import java.util.Arrays;
-import java.util.List;
+//import java.util.Arrays;
 import java.util.Scanner;
 
 public class proyectofin {
     private static Scanner entradaEscaner = new Scanner(System.in);
     private static String[][] usuariosSistema = {{"1", "Jorge", "12","55442233", "Administrador","Jorge Bardales"}, {"2", "Aldo", "22", "44556677","Gerente","Aldo Lizarraga"},{"3","Darla","987654","66778899","Gerente","Darla Perez"}};
     private static String[][] datosTrabajadores = new String[30][9];
-    private static String [][] horasTrabajadas = new String[30][4];// es necesario?
     private static String [][] avanceTrabajador = new String[30][12];
 
 
     public static void main(String[] args) {
-        mensajeBienvenida();
+        /*mensajeBienvenida();
         String usuario, contrasenia;
         boolean estado = false;
         do {
             System.out.print("Ingrese su usuario: ");
             usuario = entradaEscaner.nextLine();
-            System.out.print("Ingrese su Contrase�a: ");
+            System.out.print("Ingrese su Contraseña: ");
             contrasenia = entradaEscaner.nextLine();
             estado = autenticarAutorizar(usuario,contrasenia);
 
-        } while (estado == false);
+        } while (estado == false);*/
+        login();
     }
 
     private static void login(){
+        mensajeBienvenida();
         String usuario, contrasenia;
         boolean estado = false;
-        mensajeBienvenida();
         do {
             //entradaEscaner.nextLine();
             System.out.print("Ingrese su usuario: ");
@@ -81,32 +80,32 @@ public class proyectofin {
         System.out.println("2. Listado de Empleados");
         System.out.println("3. Salir sesion");
         System.out.println("0. Apagar sistema");
-        int opcion;
+        String opcion;
         do{
             System.out.print("Seleccione opción : ");
-            opcion = entradaEscaner.nextInt();
+            opcion = entradaEscaner.nextLine();
             switch (opcion){
-                case 0:
+                case "0":
                     System.out.println("APAGADO EL SISTEMA");
                     break;
-                case 1:
+                case "1":
                     agregarTrabajador(i);
                     break;
-                case 2:
+                case "2":
                     listarTrabajadores(i);
                     break;
-                case 3:
+                case "3":
                     System.out.println("Esta saliendo de su sesion");
                     System.out.println("");
                     System.out.println("");
-                    entradaEscaner.nextLine();
+                    //entradaEscaner.nextLine();
                     login();
                     break;
                 default:
                     System.out.println("No existe la siguiente opción. Ingrese nuevamente");
                     break;
             }
-        } while(opcion != 0);
+        } while(!opcion.equals("0"));
         System.out.println("");
         System.out.println("");
         System.exit(1);
@@ -118,32 +117,32 @@ public class proyectofin {
         System.out.println("2. Listado de empleado por tienda");
         System.out.println("3. Ver planilla de Empleados");
         System.out.println("4. Salir sesion");
-        int opcion;
+        String opcion;
         do{
             System.out.print("Seleccione opción : ");
-            opcion = entradaEscaner.nextInt();
+            opcion = entradaEscaner.nextLine();
             switch (opcion){
-                case 1:
-                    entradaEscaner.nextLine();
+                case "1":
+                    //entradaEscaner.nextLine();
                     registroAvanceTrabjador(i);
                     break;
-                case 2:
+                case "2":
                     listarTrabajadasporTienda(i);
                     break;
-                case 3:
+                case "3":
                     visualizarPlanilla(i);
                     break;
-                case 4:
+                case "4":
                     System.out.println("Esta saliendo de su sesión");
                     break;
                 default:
                     System.out.println("No existe la siguiente opción. Ingrese nuevamente");
                     break;
             }
-        } while(opcion != 4);
+        } while(!opcion.equals("4"));
         System.out.println("");
         System.out.println("");
-        entradaEscaner.nextLine();
+        //entradaEscaner.nextLine();
         login();
     }
 
@@ -160,7 +159,7 @@ public class proyectofin {
         double horasExtra=0.0;
 
         boolean existeTrabajador = false;
-        entradaEscaner.nextLine();
+        //entradaEscaner.nextLine();
         do {
             System.out.print("Ingrese el DNI del trabajador: " );
             dniTrabjador = entradaEscaner.nextLine();
@@ -289,7 +288,7 @@ public class proyectofin {
         do {
             System.out.print("Ingresar mes y año actual MM/AAAA: " );
             mestrabajado = entradaEscaner.nextLine();
-            if(mestrabajado.substring(0,2).matches("[+-]?\\d*(\\.\\d+)?") && mestrabajado.substring(3,7).matches("[+-]?\\d*(\\.\\d+)?")) {
+            if(mestrabajado.length() >= 7 && mestrabajado.substring(0,2).matches("[+-]?\\d*(\\.\\d+)?") && mestrabajado.substring(3,7).matches("[+-]?\\d*(\\.\\d+)?")) {
                 if ((Integer.parseInt(mestrabajado.substring(0,2)) >= 1 &&  Integer.parseInt(mestrabajado.substring(0,2)) <= 12) && (Integer.parseInt(mestrabajado.substring(3,7)) >= 2000 &&  Integer.parseInt(mestrabajado.substring(3,7)) <= 2021) && mestrabajado.substring(2,3).equals("/")) {
                     validarMesAnio = true;
                 } else {
@@ -361,7 +360,7 @@ public class proyectofin {
                 if (datosTrabajadores[j][2].equals(dniTrabajador)) {
                     trabajador=j;
                 } else {
-                    System.out.println("No se encontró trabajador");
+                    //System.out.println("No se encontró trabajador");
                 }
             }
         }
@@ -405,7 +404,7 @@ public class proyectofin {
 
     public static void listarTrabajadasporTienda(int codigoUsuario){
         String codigoTienda;
-        entradaEscaner.nextLine();
+        //entradaEscaner.nextLine();
         System.out.print("Ingrese el codigo de la tienda: " );
         codigoTienda = entradaEscaner.nextLine();
         System.out.println("LISTA DE TRABAJADORES POR TIENDA "+ codigoTienda +": " );
@@ -428,7 +427,7 @@ public class proyectofin {
     public static void agregarTrabajador(int i){
         boolean validarDNI = false, validarPuesto = false, validarBeneficio = false, validarPension = false, validarMesAnio = false, validarTienda = false;
         String nombreTrabajador, puestoTrabajador="", ingreso, beneficiosTrabajador, codigoTienda, dniTrabajador,codTrabjador,pension;
-        entradaEscaner.nextLine();
+        //entradaEscaner.nextLine();
         System.out.print("Ingrese Nombre trabajador: " );
         nombreTrabajador = entradaEscaner.nextLine();
 
@@ -468,7 +467,8 @@ public class proyectofin {
         do {
             System.out.print("Indicar si el trabajador cuenta con Asignación familiar. Responder Si o No: " );
             beneficiosTrabajador = entradaEscaner.nextLine();
-            if(beneficiosTrabajador.equals("Si")|| beneficiosTrabajador.equals("SI")|| beneficiosTrabajador.equals("si") || beneficiosTrabajador.equals("No")||beneficiosTrabajador.equals("NO")||beneficiosTrabajador.equals("no")){
+            //if(beneficiosTrabajador.equals("Si")|| beneficiosTrabajador.equals("SI")|| beneficiosTrabajador.equals("si") || beneficiosTrabajador.equals("No")||beneficiosTrabajador.equals("NO")||beneficiosTrabajador.equals("no")){
+            if(beneficiosTrabajador.equalsIgnoreCase("si") || beneficiosTrabajador.equalsIgnoreCase("no")){
                 validarBeneficio = true;
             } else{
                 System.out.println("*Por favor ingresar Si o No en el campo.");
@@ -566,10 +566,7 @@ public class proyectofin {
         System.out.println("");
         System.out.println("");
         ingresoModuloAdministrador(i);
-        /*for (int x = 0; x < datosTrabajadores.length; x++){
-            if(datosTrabajadores[x][0] != null)
-                System.out.println(datosTrabajadores[x][0]+ "          " +datosTrabajadores[x][1]+ "          " +datosTrabajadores[x][2]+ "          " +datosTrabajadores[x][3]+ "          " +datosTrabajadores[x][4]);
-        }*/
+
     }
 
 }
