@@ -1,4 +1,4 @@
-package TrabajoGrupal;
+package TrabajoGrupal.FundamentoGrupo2;
 
 //import java.util.Arrays;
 import java.util.Scanner;
@@ -11,17 +11,6 @@ public class proyectofin {
 
 
     public static void main(String[] args) {
-        /*mensajeBienvenida();
-        String usuario, contrasenia;
-        boolean estado = false;
-        do {
-            System.out.print("Ingrese su usuario: ");
-            usuario = entradaEscaner.nextLine();
-            System.out.print("Ingrese su Contraseña: ");
-            contrasenia = entradaEscaner.nextLine();
-            estado = autenticarAutorizar(usuario,contrasenia);
-
-        } while (estado == false);*/
         login();
     }
 
@@ -204,8 +193,7 @@ public class proyectofin {
         //Cálculo Comisión
         comision= (Double.parseDouble(avanceTrabajador[datoAvance][5])/Double.parseDouble(avanceTrabajador[datoAvance][4]))*sueldoBase;
 
-        //Cáculo AFP
-
+        //Cálculo AFP
         if(datosTrabajadores[datoTrabajador][7].equals("1")) pensiononp= (remuMensual+asigFam+comision+horasExtra)*0.13;
         if(datosTrabajadores[datoTrabajador][7].equals("2")){
             pension= (remuMensual+asigFam+comision+horasExtra)*0.10;
