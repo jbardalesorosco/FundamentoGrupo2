@@ -1,40 +1,36 @@
 package TrabajoGrupal.FundamentoGrupo2;
-
-//import java.util.Arrays;
 import java.util.Scanner;
-
 public class proyectofin {
+    //Se declara el metodo Scanner para la lectura del ingreso de datos y variables multidimensionales para el guardado de datos.
     private static Scanner entradaEscaner = new Scanner(System.in);
     private static String[][] usuariosSistema = {{"1", "Jorge", "12","55442233", "Administrador","Jorge Bardales"}, {"2", "Aldo", "22", "44556677","Gerente","Aldo Lizarraga"},{"3","Darla","987654","66778899","Gerente","Darla Perez"}};
     private static String[][] datosTrabajadores = new String[30][9];
     private static String [][] avanceTrabajador = new String[30][12];
 
-
+    //Se ejecuta el metodo main llamando al metodo dentro de su ambito
     public static void main(String[] args) {
         login();
     }
-
+    //Método login nos servira para solicitar los datos del usuario para su respectiva validación de acceso
     private static void login(){
         mensajeBienvenida();
         String usuario, contrasenia;
         boolean estado = false;
         do {
-            //entradaEscaner.nextLine();
             System.out.print("Ingrese su usuario: ");
             usuario = entradaEscaner.nextLine();
-
             System.out.print("Ingrese su Contraseña: ");
             contrasenia = entradaEscaner.nextLine();
             estado = autenticarAutorizar(usuario,contrasenia);
         } while (estado == false);
     }
-
+    //Metodo para imprimir un mensaje de bienvenida
     public static void mensajeBienvenida() {
         System.out.println("****************************************************");
         System.out.println("*****BIENVENIDO AL SISTEMA DE PLANILLA DE ISHOP*****");
         System.out.println("****************************************************");
     }
-
+    //Metodo para validar dentro de un arreglo si existe el usuario y si su contrase es correcta
     public static boolean autenticarAutorizar(String usuario, String contrasenia){
         boolean usuarioCorrecto = false;
         boolean existeUsuario = false;
@@ -62,7 +58,7 @@ public class proyectofin {
         }
         return usuarioCorrecto;
     }
-
+    //Metodo para el ingreso a su modulo el usuario con perfil administrador
     public static void ingresoModuloAdministrador(int i){
         System.out.println("MENÚ ADMINISTRADOR");
         System.out.println("1. Agregar Trabajador");
@@ -87,7 +83,6 @@ public class proyectofin {
                     System.out.println("Esta saliendo de su sesion");
                     System.out.println("");
                     System.out.println("");
-                    //entradaEscaner.nextLine();
                     login();
                     break;
                 default:
@@ -99,7 +94,7 @@ public class proyectofin {
         System.out.println("");
         System.exit(1);
     }
-
+    //Metodo para el ingreso a su modulo el usuario con perfil gerente
     public static void ingresoModuloGerente(int i){
         System.out.println("MENÚ GERENTE");
         System.out.println("1. Registrar avance de trabajador");
@@ -131,10 +126,9 @@ public class proyectofin {
         } while(!opcion.equals("4"));
         System.out.println("");
         System.out.println("");
-        //entradaEscaner.nextLine();
         login();
     }
-
+    //Metodo para la generación y visualizacion de la planilla
     private static void visualizarPlanilla(int i) {
         String dniTrabjador;
         double sueldoBase=0.0;
@@ -146,9 +140,7 @@ public class proyectofin {
         double pensionAdmi=0.0;
         double pensionSeg=0.0;
         double horasExtra=0.0;
-
         boolean existeTrabajador = false;
-        //entradaEscaner.nextLine();
         do {
             System.out.print("Ingrese el DNI del trabajador: " );
             dniTrabjador = entradaEscaner.nextLine();
@@ -160,10 +152,7 @@ public class proyectofin {
             if (existeTrabajador == false){
                 System.out.println("El siguiente DNI ingresado no existe en la lista de trabajadores");
             }
-
         } while (existeTrabajador == false);
-
-
 
         int datoAvance =0;
         for (int j = 0; j <avanceTrabajador.length ; j++) {
@@ -177,22 +166,17 @@ public class proyectofin {
                 if (datosTrabajadores[x][2].equals(dniTrabjador)) datoTrabajador=x;
             }
         }
-
         if(datosTrabajadores[datoTrabajador][3].equals("1"))sueldoBase=1000;
         if(datosTrabajadores[datoTrabajador][3].equals("2"))sueldoBase=3500;
         if(datosTrabajadores[datoTrabajador][3].equals("3"))sueldoBase=2500;
-
         //Calculo de remuneración mensual
         remuMensual = (sueldoBase/30)* Integer.parseInt(avanceTrabajador[datoAvance][3]);
-
         //Cálculo ASignación Familiar
         if (datosTrabajadores[datoTrabajador][4].equals("Si")||datosTrabajadores[datoTrabajador][4].equals("si")){
             asigFam=93.00;
         }else   asigFam =0;
-
         //Cálculo Comisión
         comision= (Double.parseDouble(avanceTrabajador[datoAvance][5])/Double.parseDouble(avanceTrabajador[datoAvance][4]))*sueldoBase;
-
         //Cálculo AFP
         if(datosTrabajadores[datoTrabajador][7].equals("1")) pensiononp= (remuMensual+asigFam+comision+horasExtra)*0.13;
         if(datosTrabajadores[datoTrabajador][7].equals("2")){
@@ -215,21 +199,16 @@ public class proyectofin {
             pensionAdmi = (remuMensual+asigFam+comision+horasExtra)*0.0169;
             pensionSeg = (remuMensual+asigFam+comision+horasExtra)*0.0174;
         }
-
         //Cálculo Horas Extra
         if((Integer.parseInt(avanceTrabajador[datoAvance][1])-192)>0) {
             horasExtra= (sueldoBase/192)*(Integer.parseInt(avanceTrabajador[datoAvance][1])-192);
         }else horasExtra = 0;
-
-
         System.out.println("");
         System.out.println("");
         System.out.println("");
-
         System.out.println("**********************************************************************************");
         System.out.println("****************************BOLETA DE REMUNERACIONES******************************");
         System.out.println("**********************************************************************************");
-
         System.out.format("%-20s %-25s %-15s %-15s \n","Trabajador: ", datosTrabajadores[datoTrabajador][1],"DNI: ", datosTrabajadores[datoTrabajador][2]);
         System.out.format("%-20s %-25s %-15s %-15s \n", "Código Tienda: " , datosTrabajadores[datoTrabajador][5],"Puesto: ",datosTrabajadores[datoTrabajador][3]);
         System.out.format("%-20s %-25s %-15s %-15s \n","Fecha de Ingreso: ", datosTrabajadores[datoTrabajador][8],"Sueldo Básico: ", sueldoBase);
@@ -250,12 +229,10 @@ public class proyectofin {
         System.out.println("");
         ingresoModuloGerente(i);
     }
-
+    //Metodo para realizar el registro del avance del trabajador
     public static void registroAvanceTrabjador(int i){
-
         String dniTrabajador, horas,mestrabajado, diasTrabajados, metaxTrabajador, alcaneTrabajador;
         boolean validarDni = false, validarMesAnio = false, validarDias = false, validarHorasMes = false, validarPropuesta = false, validarMontoAlcanzado = false;
-
         do {
             System.out.print("Ingrese el DNI del trabajador: " );
             dniTrabajador = entradaEscaner.nextLine();
@@ -267,11 +244,7 @@ public class proyectofin {
             if (validarDni == false){
                 System.out.println("*El siguiente DNI ingresado no existe en la lista de trabajadores");
             }
-
         } while (validarDni == false);
-        /*System.out.print("Ingrese el DNI del trabajador: " );
-        entradaEscaner.nextLine();
-        dniTrabajador = entradaEscaner.nextLine();*/
 
         do {
             System.out.print("Ingresar mes y año actual MM/AAAA: " );
@@ -286,8 +259,6 @@ public class proyectofin {
                 System.out.println("*Por favor ingresar el formato establecido.");
             }
         } while (validarMesAnio == false);
-        /*System.out.println("Ingresar mes y año actual MM/AAAA: ");
-        mestrabajado= entradaEscaner.nextLine();*/
 
         do {
             System.out.print("Ingresar cantidad de días trabajados: " );
@@ -298,8 +269,6 @@ public class proyectofin {
                 System.out.println("*Por favor ingresar el dato correcto.");
             }
         } while (validarDias == false);
-        /*System.out.println("Ingresar cantidad de días trabajados: ");
-        diasTrabajados= entradaEscaner.nextLine();*/
 
         do {
             System.out.print("Ingrese la cantidad horas trabajadas en el mes: " );
@@ -310,8 +279,6 @@ public class proyectofin {
                 System.out.println("*Por favor ingresar el dato correcto.");
             }
         } while (validarHorasMes == false);
-        /*System.out.print("Ingrese la cantidad horas trabajadas en el mes: " );
-        horas = entradaEscaner.nextLine();*/
 
         do {
             System.out.print("Ingrese la meta propuesta al trabajador: " );
@@ -322,8 +289,6 @@ public class proyectofin {
                 System.out.println("*Por favor ingresar el dato correcto.");
             }
         } while (validarPropuesta == false);
-        /*System.out.print("Ingrese la meta propuesta al trabajador: " );
-        metaxTrabajador = entradaEscaner.nextLine();*/
 
         do {
             System.out.print("Ingrese el monto alcanzado por el trabajador: " );
@@ -334,8 +299,6 @@ public class proyectofin {
                 System.out.println("*Por favor ingresar el dato correcto.");
             }
         } while (validarMontoAlcanzado == false);
-        /*System.out.print("Ingrese el monto alcanzado por el trabajador: " );
-        alcaneTrabajador = entradaEscaner.nextLine();*/
 
         int cantRegistros3 = 0;
         for (int x = 0; x < avanceTrabajador.length; x++){
@@ -365,7 +328,7 @@ public class proyectofin {
         System.out.println("");
         ingresoModuloGerente(i);
     }
-
+    //Metodo para listar los trabajadores existentes en el arreglo multidimensional
     public static void listarTrabajadores(int i) {
         System.out.println("LISTA DE TRABAJADORES: " );
         int contador = 0;
@@ -389,7 +352,7 @@ public class proyectofin {
         System.out.println("");
         ingresoModuloAdministrador(i);
     }
-
+    //Metodo para listar los trabajadores por tienda
     public static void listarTrabajadasporTienda(int codigoUsuario){
         String codigoTienda;
         //entradaEscaner.nextLine();
@@ -397,13 +360,14 @@ public class proyectofin {
         codigoTienda = entradaEscaner.nextLine();
         System.out.println("LISTA DE TRABAJADORES POR TIENDA "+ codigoTienda +": " );
         int contador = 0;
-        System.out.format("%-5s %-20s %-20s \n","N°","NOMBRE Y APELLIDO","PUESTO" );
-        System.out.format("%-5s %-20s %-20s \n","--","-----------------","------" );
-
+        System.out.format("%-5s %-20s %-10s %-20s \n","N°","NOMBRE Y APELLIDO","DNI", "PUESTO" );
+        System.out.format("%-5s %-20s %-10s %-20s \n","--","-----------------","--------", "-------------" );
+        String cargoUsuario = "";
         for (int x = 0; x < datosTrabajadores.length; x++){
             if(datosTrabajadores[x][0] != null) {
                 if(datosTrabajadores[x][5].equals(codigoTienda))
-                    System.out.format("%-5s %-20s %-20s \n",(contador + 1), datosTrabajadores[x][1], datosTrabajadores[x][2]);
+                    cargoUsuario = datosTrabajadores[x][3].equals("3") ? "Administrador" : (datosTrabajadores[x][3].equals("2") ? "Gerente" : "Vendedor");
+                    System.out.format("%-5s %-20s %-10s %-20s \n",(contador + 1), datosTrabajadores[x][1], datosTrabajadores[x][2], cargoUsuario);
             }
             contador++;
         }
@@ -411,11 +375,10 @@ public class proyectofin {
         System.out.println("");
         ingresoModuloGerente(codigoUsuario);
     }
-
+    //Metodo para agregar los datos de los trabajadores
     public static void agregarTrabajador(int i){
         boolean validarDNI = false, validarPuesto = false, validarBeneficio = false, validarPension = false, validarMesAnio = false, validarTienda = false;
         String nombreTrabajador, puestoTrabajador="", ingreso, beneficiosTrabajador, codigoTienda, dniTrabajador,codTrabjador,pension;
-        //entradaEscaner.nextLine();
         System.out.print("Ingrese Nombre trabajador: " );
         nombreTrabajador = entradaEscaner.nextLine();
 
@@ -429,8 +392,6 @@ public class proyectofin {
             }
 
         } while (validarDNI == false);
-        /*System.out.print("Ingrese DNI trabajador: " );
-        dniTrabajador = entradaEscaner.nextLine();*/
 
         System.out.println("1.- Vendedor");
         System.out.println("2.- Gerente");
@@ -446,16 +407,9 @@ public class proyectofin {
 
         } while (validarPuesto == false);
 
-        /*System.out.println("Indicar puesto: " );
-        System.out.println("1.- Vendedor");
-        System.out.println("2.- Gerente");
-        System.out.println("3.- Administrador");
-        puestoTrabajador = entradaEscaner.nextLine();*/
-
         do {
             System.out.print("Indicar si el trabajador cuenta con Asignación familiar. Responder Si o No: " );
             beneficiosTrabajador = entradaEscaner.nextLine();
-            //if(beneficiosTrabajador.equals("Si")|| beneficiosTrabajador.equals("SI")|| beneficiosTrabajador.equals("si") || beneficiosTrabajador.equals("No")||beneficiosTrabajador.equals("NO")||beneficiosTrabajador.equals("no")){
             if(beneficiosTrabajador.equalsIgnoreCase("si") || beneficiosTrabajador.equalsIgnoreCase("no")){
                 validarBeneficio = true;
             } else{
@@ -463,9 +417,6 @@ public class proyectofin {
             }
 
         } while (validarBeneficio == false);
-
-        /*System.out.println("Indicar si el trabajador cuenta con Asignación familiar. Responder Si o No: ");
-        beneficiosTrabajador = entradaEscaner.nextLine();*/
 
         System.out.println("Indicar Fondo de Pensión");
         System.out.println("1.-ONP");
@@ -485,12 +436,10 @@ public class proyectofin {
 
         } while (validarPension == false);
 
-        /*pension=entradaEscaner.nextLine();*/
-
         do {
             System.out.print("Ingresar Fecha de Ingreso. Utilizar el siguiente formato MM/AAAA: " );
             ingreso = entradaEscaner.nextLine();
-            if(ingreso.substring(0,2).matches("[+-]?\\d*(\\.\\d+)?") && ingreso.substring(3,7).matches("[+-]?\\d*(\\.\\d+)?")) {
+            if(ingreso.length() >= 7 && ingreso.substring(0,2).matches("[+-]?\\d*(\\.\\d+)?") && ingreso.substring(3,7).matches("[+-]?\\d*(\\.\\d+)?")) {
                 if ((Integer.parseInt(ingreso.substring(0,2)) >= 1 &&  Integer.parseInt(ingreso.substring(0,2)) <= 12) && (Integer.parseInt(ingreso.substring(3,7)) >= 2000 &&  Integer.parseInt(ingreso.substring(3,7)) <= 2021) && ingreso.substring(2,3).equals("/")) {
                     validarMesAnio = true;
                 } else {
@@ -500,8 +449,6 @@ public class proyectofin {
                 System.out.println("*Por favor ingresar el formato establecido.");
             }
         } while (validarMesAnio == false);
-        /*System.out.println("Ingresar Fecha de Ingreso. Utilizar el siguiente formato MM/AAAA");
-        ingreso=entradaEscaner.nextLine();*/
 
         System.out.println("Los códigos de tienda actualmente son los siguientes:");
         System.out.println("Código:\tNombre\t\t\tCódigo:\tNombre\t\t\tCódigo:\tNombre" );
@@ -514,7 +461,6 @@ public class proyectofin {
         System.out.println("CO:\t\tComas\t\t\tST:\t\tSanta Anita\t\tMS:\t\tMall del Sur");
         System.out.println("ME:\t\tMegaplaza\t\tJ1:\t\tJockey I\t\tRA:\t\tRambla");
         System.out.println("LC:\t\tLarco\t\t\tPI:\t\tPiura");
-
         String[] codigosTienda = {"SM","CC","BV","SV","PN","CO","ME","LC","LM","OG","AN","PR","EP","ST","J1","PI","CH","HY","AR","J2","PS","MS","RA"};
         //validarTienda
         do {
@@ -530,15 +476,12 @@ public class proyectofin {
             }
 
         } while (validarTienda == false);
-        /*System.out.print("Ingresar el código de tienda:");
-        codigoTienda = entradaEscaner.nextLine();*/
 
         int cantRegistros2 = 0;
         for (int x = 0; x < datosTrabajadores.length; x++){
             if(datosTrabajadores[x][0] != null)
                 cantRegistros2++;
         }
-
         datosTrabajadores[cantRegistros2][0] = String.valueOf(cantRegistros2+1);
         datosTrabajadores[cantRegistros2][1] = nombreTrabajador;
         datosTrabajadores[cantRegistros2][2] = dniTrabajador; //se agrega DNI de trabajador
@@ -554,7 +497,5 @@ public class proyectofin {
         System.out.println("");
         System.out.println("");
         ingresoModuloAdministrador(i);
-
     }
-
 }
